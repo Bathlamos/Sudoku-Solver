@@ -26,8 +26,13 @@ A theoretical analysis of the time complexity of the algorithms will be contrast
 
 ###References
 [1] Felgenhauer B, Jarvis F. Enumerating possible Sudoku grids. [Internet]. 2005 [cited 2013 Mar 21]. Available from: http://www.afjarvis.staff.shef.ac.uk/sudoku/.
+
 [2] Johansson S., Broström A. “Sudoku Solvers: Man versus Machine”, Bachelor Thesis, KTH Royal Institute of Technology, 2000.
+
 [3] Norvig, P. Solving Every Sudoku Puzzle [Internet]. [cited 2015 Feb]. Available from: http://norvig.com/sudoku.html.
+
 [4] Project Euler. [Internet]. [cited 2015 Feb]. Available from:https://projecteuler.net.
+
 [5] Sudoku Shack. [Internet]. 2007 [cited 2015 Feb]. Available from: http://www.soduko.org/sudoku-list.php.
+
 [6] Yato T., Seta T. “Complexity and Completeness of Finding Another Solution and Its Applications to Puzzles”, 2003.
