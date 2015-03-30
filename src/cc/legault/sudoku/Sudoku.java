@@ -43,18 +43,19 @@ public class Sudoku {
         int i = location.getI();
         int j = location.getJ();
         //Check the column
-        for(int i2 = 0; i2 < 9; i2++)
+        for(int i2 = 0; i2 < board.length; i2++)
             if(board[i2][j] == value && i2 != i)
                 return false;
         //Check the row
-        for(int j2 = 0; j2 < 9; j2++)
+        for(int j2 = 0; j2 < board[0].length; j2++)
             if(board[i][j2] == value && j2 != j)
                 return false;
         //Check the rest of the square
-        int baseI = i - (i % 3);
-        int baseJ = j - (j % 3);
-        for(int i2 = baseI; i2 < baseI + 3; i2++)
-            for(int j2 = baseJ; j2 < baseJ + 3; j2++)
+        int subsquareSize = (int) Math.sqrt(board.length);
+        int baseI = i - (i % subsquareSize);
+        int baseJ = j - (j % subsquareSize);
+        for(int i2 = baseI; i2 < baseI + subsquareSize; i2++)
+            for(int j2 = baseJ; j2 < baseJ + subsquareSize; j2++)
                 if (board[i2][j2] == value && j2 != j && i2 != i)
                     return false;
         return true;
@@ -77,6 +78,10 @@ public class Sudoku {
 
     public Sudoku clone() {
         return new Sudoku(name, clone2DShortArray(board));
+    }
+
+    public int getBoardSize() {
+		return board.length;
     }
 
     private static short[][] clone2DShortArray(short[][] array) {
