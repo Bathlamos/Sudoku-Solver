@@ -1,13 +1,12 @@
 package cc.legault.sudoku;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import cc.legault.sudoku.algorithms.BacktrackingAlgorithm;
+import cc.legault.sudoku.algorithms.ConstraintPropagationAlgorithm;
 import cc.legault.sudoku.algorithms.Solver;
 import cc.legault.sudoku.algorithms.SudokuSolution;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public class Main {
 
@@ -15,12 +14,57 @@ public class Main {
         try {
             Sudoku[] sudokus = SudokuLoader.fromFile("resources/ProjectEuler#096.txt", StandardCharsets.UTF_8);
             Solver solver = new BacktrackingAlgorithm();
+            Solver solver2 = new ConstraintPropagationAlgorithm();
 
-            System.out.println("The input:");
-            System.out.println(sudokus[0].toString());
+            long btAverageTime = 0;
+            long cpAverageTime = 0;
+
+            long btMaxTime = 0;
+            long cpMaxTime = 0;
+
+            long btMinTime = Long.MAX_VALUE;
+            long cpMinTime = Long.MAX_VALUE;
+
+            for(int i = 0; i < sudokus.length; i++) {
+            	SudokuSolution solution = solver.solve(sudokus[i]);
+                SudokuSolution solution2 = solver2.solve(sudokus[i]);
+
+                System.out.println("Backtracking total time for Grid" + (i+1) + ": " + solution.getTime());
+                System.out.println("Constraint total time for Grid" + (i+1) + ": " + solution2.getTime());
+                System.out.println();
+
+                btAverageTime += solution.getTime();
+                cpAverageTime += solution2.getTime();
+
+                if(solution.getTime() > btMaxTime) {
+                	btMaxTime = solution.getTime();
+                }
+
+                if(solution.getTime() < btMinTime) {
+                	btMinTime = solution.getTime();
+                }
+
+                if(solution2.getTime() > cpMaxTime) {
+                	cpMaxTime = solution2.getTime();
+                }
+
+                if(solution2.getTime() < cpMinTime) {
+                	cpMinTime = solution2.getTime();
+                }
+            }
+
+            btAverageTime /= sudokus.length;
+            cpAverageTime /= sudokus.length;
+
+            System.out.println("Backtracking max time: " + btMaxTime);
+            System.out.println("Backtracking average time: " + btAverageTime);
+            System.out.println("Backtracking min time: " + btMinTime);
+
             System.out.println();
-            System.out.println("And the solution:");
-            System.out.println(solver.solve(sudokus[0]).getSudoku().toString());
+
+            System.out.println("Constraint propagation max time: " + cpMaxTime);
+            System.out.println("Constraint propagation average time: " + cpAverageTime);
+            System.out.println("Constraint propagation min time: " + cpMinTime);
         }catch(IOException e){
             e.printStackTrace();
         }
