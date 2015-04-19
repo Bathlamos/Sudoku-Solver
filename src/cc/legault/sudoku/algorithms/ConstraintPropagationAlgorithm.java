@@ -13,6 +13,7 @@ public class ConstraintPropagationAlgorithm implements Solver {
 		long init = System.currentTimeMillis();
 
 		Sudoku sudoku = givenSudoku.clone();
+		sudoku.setName(sudoku.getName() + " - Solution");
 
 		LinkedList<Short>[][] workingSet = initWorkingSet(sudoku.getBoardSize());
 		setInitialWorkingSetValues(sudoku, workingSet);

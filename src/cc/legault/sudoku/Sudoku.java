@@ -17,7 +17,7 @@ public class Sudoku {
         for(short[] row: board) {
             sb.append('\n');
             for (short cell : row)
-                sb.append(cell);
+                sb.append(cell + " ");
         }
 
         return sb.toString();

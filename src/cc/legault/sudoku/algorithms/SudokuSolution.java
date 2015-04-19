@@ -5,9 +5,9 @@ import cc.legault.sudoku.Sudoku;
 public class SudokuSolution {
 
     Sudoku completed;
-    long time; //In millisecond;
+    long time; // In millisecond;
 
-    public SudokuSolution(Sudoku sudoku, long time){
+    public SudokuSolution(Sudoku sudoku, long time) {
         completed = sudoku;
         this.time = time;
     }

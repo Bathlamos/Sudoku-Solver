@@ -13,6 +13,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             Sudoku[] sudokus = SudokuLoader.fromFile("resources/ProjectEuler#096.txt", StandardCharsets.UTF_8);
+//            Sudoku[] sudokus = SudokuLoader.fromFile("resources/Hexudoku.txt", StandardCharsets.UTF_8);
+            
             Solver solver = new BacktrackingAlgorithm();
             Solver solver2 = new ConstraintPropagationAlgorithm();
 
@@ -26,11 +28,14 @@ public class Main {
             long cpMinTime = Long.MAX_VALUE;
 
             for(int i = 0; i < sudokus.length; i++) {
+            	System.out.println(sudokus[i]);
+            	
             	SudokuSolution solution = solver.solve(sudokus[i]);
-                SudokuSolution solution2 = solver2.solve(sudokus[i]);
+            	SudokuSolution solution2 = solver2.solve(sudokus[i]);
 
-                System.out.println("Backtracking total time for Grid" + (i+1) + ": " + solution.getTime());
-                System.out.println("Constraint total time for Grid" + (i+1) + ": " + solution2.getTime());
+                System.out.println("Backtracking total time for Grid" + (i+1) + ": " + solution.getTime() + "ms");
+                System.out.println("Constraint total time for Grid" + (i+1) + ": " + solution2.getTime() + "ms");
+                System.out.println(solution.getSudoku());
                 System.out.println();
 
                 btAverageTime += solution.getTime();
@@ -56,15 +61,15 @@ public class Main {
             btAverageTime /= sudokus.length;
             cpAverageTime /= sudokus.length;
 
-            System.out.println("Backtracking max time: " + btMaxTime);
-            System.out.println("Backtracking average time: " + btAverageTime);
-            System.out.println("Backtracking min time: " + btMinTime);
+            System.out.println("Backtracking max time: " + btMaxTime + "ms");
+            System.out.println("Backtracking average time: " + btAverageTime + "ms");
+            System.out.println("Backtracking min time: " + btMinTime + "ms");
 
             System.out.println();
 
-            System.out.println("Constraint propagation max time: " + cpMaxTime);
-            System.out.println("Constraint propagation average time: " + cpAverageTime);
-            System.out.println("Constraint propagation min time: " + cpMinTime);
+            System.out.println("Constraint propagation max time: " + cpMaxTime + "ms");
+            System.out.println("Constraint propagation average time: " + cpAverageTime + "ms");
+            System.out.println("Constraint propagation min time: " + cpMinTime + "ms");
         }catch(IOException e){
             e.printStackTrace();
         }
