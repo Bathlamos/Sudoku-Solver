@@ -12,6 +12,7 @@ public class BacktrackingAlgorithm implements Solver{
         long init = System.currentTimeMillis();
 
         Sudoku sudoku = givenSudoku.clone();
+        sudoku.setName(sudoku.getName() + " - Solution");
         Stack<Location> locations = new Stack<>();
 
         Location firstEmptyLocation = sudoku.getFirstEmptyLocation();
@@ -21,7 +22,7 @@ public class BacktrackingAlgorithm implements Solver{
         while(!locations.isEmpty()){
             Location location = locations.peek();
             boolean valid = false;
-            for(short i = (short) (sudoku.getValue(location) + 1); i <= 9 && !valid; i++)
+            for(short i = (short) (sudoku.getValue(location) + 1); i <= sudoku.getBoardSize() && !valid; i++)
                 if(sudoku.isValidAssignment(location, i)){
                     sudoku.setValue(location, i);
                     firstEmptyLocation = sudoku.getFirstEmptyLocation(location);
