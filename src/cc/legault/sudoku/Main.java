@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Sudoku[] sudokus = SudokuLoader.fromFile("resources/ProjectEuler#096.txt", StandardCharsets.UTF_8);
-//            Sudoku[] sudokus = SudokuLoader.fromFile("resources/Hexudoku.txt", StandardCharsets.UTF_8);
+            //Sudoku[] sudokus = SudokuLoader.fromFile("resources/ProjectEuler#096.txt", StandardCharsets.UTF_8);
+            Sudoku[] sudokus = SudokuLoader.fromFile("resources/Hexudoku.txt", StandardCharsets.UTF_8);
             
             Solver solver = new BacktrackingAlgorithm();
             Solver solver2 = new ConstraintPropagationAlgorithm();
@@ -31,31 +31,38 @@ public class Main {
             	System.out.println(sudokus[i]);
             	
             	SudokuSolution solution = solver.solve(sudokus[i]);
-            	SudokuSolution solution2 = solver2.solve(sudokus[i]);
+            	SudokuSolution solution2 = solver.solve(sudokus[i]);
 
                 System.out.println("Backtracking total time for Grid" + (i+1) + ": " + solution.getTime() + "ms");
                 System.out.println("Constraint total time for Grid" + (i+1) + ": " + solution2.getTime() + "ms");
                 System.out.println(solution.getSudoku());
+
+                //Compare the two solutions
+                boolean valid = true;
+                for(int j = 0; j < sudokus[i].getBoardSize() && valid; j++)
+                    for(int k = 0; k < sudokus[i].getBoardSize() && valid; k++) {
+                        Location l = new Location(j, k);
+                        valid &= solution.getSudoku().getValue(l) == solution2.getSudoku().getValue(l);
+                    }
+                if(!valid)
+                    throw new RuntimeException("The solutions are not the same : " + i);
+
                 System.out.println();
 
                 btAverageTime += solution.getTime();
                 cpAverageTime += solution2.getTime();
 
-                if(solution.getTime() > btMaxTime) {
+                if(solution.getTime() > btMaxTime)
                 	btMaxTime = solution.getTime();
-                }
 
-                if(solution.getTime() < btMinTime) {
+                if(solution.getTime() < btMinTime)
                 	btMinTime = solution.getTime();
-                }
 
-                if(solution2.getTime() > cpMaxTime) {
+                if(solution2.getTime() > cpMaxTime)
                 	cpMaxTime = solution2.getTime();
-                }
 
-                if(solution2.getTime() < cpMinTime) {
+                if(solution2.getTime() < cpMinTime)
                 	cpMinTime = solution2.getTime();
-                }
             }
 
             btAverageTime /= sudokus.length;

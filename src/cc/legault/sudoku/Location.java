@@ -27,6 +27,13 @@ public class Location {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Location))
+            return false;
+        return ((Location) obj).i == i && ((Location) obj).j == j;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("(");
         sb.append(i);

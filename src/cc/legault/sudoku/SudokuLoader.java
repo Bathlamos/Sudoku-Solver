@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class SudokuLoader {
+
     public static Sudoku[] fromFile(String path, Charset encoding) throws IOException {
         try (InputStream in = new FileInputStream(new File(path));
              Reader reader = new InputStreamReader(in, encoding);
