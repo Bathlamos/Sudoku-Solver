@@ -36,9 +36,10 @@ public final class SudokuLoader {
         int i = 0;
         String line;
 
-        short[][] board = new short[9][9];;
-
         while ((line = reader.readLine()) != null) {
+
+            short[][] board = new short[9][9];
+
             //Each line is a new sudoku
             for(int j = 0; j < line.length(); j++) {
                 if(j % 9 == 0){
