@@ -13,7 +13,8 @@ public class Main {
     public static void main(String[] args) {
         try {
             //Sudoku[] sudokus = SudokuLoader.fromFile("resources/ProjectEuler#096.txt", StandardCharsets.UTF_8);
-            Sudoku[] sudokus = SudokuLoader.fromFile("resources/Hexudoku.txt", StandardCharsets.UTF_8);
+            //Sudoku[] sudokus = SudokuLoader.fromFile("resources/Hexudoku.txt", StandardCharsets.UTF_8);
+            Sudoku[] sudokus = SudokuLoader.fromFileAsLine("resources/Level5.txt", StandardCharsets.UTF_8);
             
             Solver solver = new BacktrackingAlgorithm();
             Solver solver2 = new ConstraintPropagationAlgorithm();

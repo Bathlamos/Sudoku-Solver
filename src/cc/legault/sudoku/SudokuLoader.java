@@ -18,8 +18,38 @@ public final class SudokuLoader {
              Reader reader = new InputStreamReader(in, encoding);
              // buffer for efficiency
              BufferedReader buffer = new BufferedReader(reader)) {
-        		return parseSudoku(buffer);
+            return parseSudoku(buffer);
         }
+    }
+
+    public static Sudoku[] fromFileAsLine(String path, Charset encoding) throws IOException {
+        try (InputStream in = new FileInputStream(new File(path));
+             Reader reader = new InputStreamReader(in, encoding);
+             // buffer for efficiency
+             BufferedReader buffer = new BufferedReader(reader)) {
+            return parseSudokuAsLine(buffer);
+        }
+    }
+
+    private static Sudoku[] parseSudokuAsLine(BufferedReader reader) throws IOException {
+        List<Sudoku> sudokus = new ArrayList<>();
+        int i = 0;
+        String line;
+
+        short[][] board = new short[9][9];;
+
+        while ((line = reader.readLine()) != null) {
+            //Each line is a new sudoku
+            for(int j = 0; j < line.length(); j++) {
+                if(j % 9 == 0){
+                    board[j / 9] = new short[9];
+                }
+                board[j / 9][j % 9] = Short.parseShort(line.charAt(j) + "");
+            }
+            sudokus.add(new Sudoku("Board " + sudokus.size(), board));
+        }
+
+        return sudokus.toArray(new Sudoku[sudokus.size()]);
     }
 
     private static Sudoku[] parseSudoku(BufferedReader reader) throws IOException {

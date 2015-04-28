@@ -144,5 +144,5 @@ public class ConstraintPropagationAlgorithm implements Solver {
             }
         }
     }
-    
+
 }
